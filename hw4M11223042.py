@@ -47,37 +47,14 @@ from time import time
 apristart = time()
 
 frq_items = apriori(data, min_support = 0.00375, use_colnames = True)
-#print(frq_items)
+# print(frq_items)
 
 rules = association_rules(frq_items, metric='confidence', min_threshold=0.8)
-
+#print(rules)
 apritime = time() - apristart
 print("Apriori花費時間:"+str(apritime))
-# rules_df = pd.DataFrame(rules)
-# rules_df.to_csv("apriori_rules.csv", encoding="utf-8", index=False)
-
-#       different support & confidence
-
-# t1 = time()
-# frq_items1 = apriori(data, min_support = 0.006, use_colnames = True)
-# rules1 = association_rules(frq_items1, metric='confidence', min_threshold=0.7)
-# test1 = time() - t1
-# print(frq_items1)
-# print("時間為:"+test1)
-
-# t2 = time()
-# frq_items2 = apriori(data, min_support = 0.009, use_colnames = True)
-# rules2 = association_rules(frq_items2, metric='confidence', min_threshold=0.6)
-# test2 = time() - t2
-# print(frq_items2)
-# print("時間為:"+test2)
-
-# t3 = time()
-# frq_items3 = apriori(data, min_support = 0.012, use_colnames = True)
-# rules3 = association_rules(frq_items3, metric='confidence', min_threshold=0.5)
-# test2 = time() - t3
-# print(frq_items3)
-# print("時間為:"+test3)
+rules_df = pd.DataFrame(rules)
+rules_df.to_csv("apriori_rules.csv", encoding="utf-8", index=False)
 
 #      user input predict
 
@@ -90,7 +67,7 @@ def string_to_list(string):
 
 rules_a = pd.read_csv(r'apriori_rules.csv')
 
-uinput = input("請輸入一串商品 用,分隔:")
+uinput = input("Apriori 請輸入一串商品 用,分隔:")
 item = uinput.split(',')
 prediction_items = list(map(str,item))
 
@@ -110,6 +87,7 @@ fpg0 = time()
 fpg_items = fpgrowth(data, min_support=0.00375, use_colnames=True)
 #print(fpg)
 rules = association_rules(fpg_items, metric='confidence', min_threshold=0.8)
+#print(rules)
 fpgtime= time()-fpg0
 print("FP-growth花費時間:"+str(fpgtime))
 rules_df=pd.DataFrame(rules)
@@ -117,32 +95,9 @@ rules_df.to_csv("fpg_rules.csv", encoding="utf-8", index=False)
 
 #print(rules)
 
-#       different support & confidence
-
-# fpg1 = time()
-# fpg_items1 = fpgrowth(data, min_support = 0.006, use_colnames = True)
-# f_rules1 = association_rules(fpg_items1, metric='confidence', min_threshold=0.7)
-# test1 = time() - fpg1
-# print(fpg_items1)
-# print("時間為:"+test1)
-
-# fpg2 = time()
-# fpg_items2 = fpgrowth(data, min_support = 0.009, use_colnames = True)
-# f_rules2 = association_rules(fpg_items2, metric='confidence', min_threshold=0.6)
-# test2 = time() - fpg2
-# print(fpg_items2)
-# print("時間為:"+test2)
-
-# fpg3 = time()
-# fpg_items3 = fpgrowth(data, min_support = 0.012, use_colnames = True)
-# f_rules3 = association_rules(fpg_items3, metric='confidence', min_threshold=0.5)
-# test3 = time() - fpg3
-# print(fpg_items3)
-# print("時間為:"+test3)
-
 rules_f = pd.read_csv(r'fpg_rules.csv')
 
-uinput = input("請輸入一串商品 用,分隔:")
+uinput = input("FP-growth 請輸入一串商品 用,分隔:")
 item = uinput.split(',')
 prediction_items = list(map(str,item))
 
